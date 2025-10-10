@@ -1,0 +1,11 @@
+Openlake:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      role: SYSADMIN
+      warehouse: OPENLAKE_G2
+      database: OPENLAKE
+      schema: BLD
+      account: ' '
+      user: ' '
