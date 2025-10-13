@@ -17,3 +17,5 @@ snapshot-paths:
 models:
   Openlake:
     +materialized: view
+flags:
+  enable_iceberg_materializations: true
