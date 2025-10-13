@@ -1,0 +1,59 @@
+version: 2
+
+sources:
+  - name: sqls
+    database: OPENLAKE_RAW
+    schema: "rep_psgs"
+    tables:
+      - name: "accounts"
+        description: "Accounts table from my transactional system"
+        columns:
+          - name: "account_id"
+            description: "Unique identifier for each account and a Primary key"
+          - name: "customer_id"
+            description: "Unique identifier for each customer"
+          - name: "account_type"
+            description: "Type of bank account"
+          - name: "balance"
+            description: "Current account balance"
+          - name: "open_date"
+            description: "Date account was opened"
+
+models:
+  - name: accounts
+    description: "Order data transformed for analysis"
+    columns:
+      - name: "account_id"
+        description: "Unique identifier for each account"
+        tests:
+          - unique
+          - not_null
+      - name: "account_type"
+        description: "Type of bank account"
+        tests:
+          - accepted_values:
+            values: ['Nómina', 'Corriente', 'Ahorro']
+      - name: "customer_id"
+        description: "Unique identifier for each customer"
+        tests:
+          - not_null
+      - name: "open_date"
+        description: "Date account was opened"
+        tests:
+          - not_null
+    meta:
+      owner: openlake_eng_team
+      freshness_check: True
+
+  - name: customer_summary
+    description: "Aggregated customer purchase metrics"
+    columns:
+      - name: customer_id
+        description: "Unique customer identifier"
+        tests:
+          - not_null
+      - name: total_orders
+        description: "Total number of orders by customer"
+    meta:
+      owner: analytics_team
+      refresh_schedule: "daily"

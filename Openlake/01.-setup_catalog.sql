@@ -80,4 +80,3 @@ create or replace database OPENLAKE_ICE
 ;
 
 SELECT SYSTEM$CATALOG_LINK_STATUS('OPENLAKE_ICE');
-
