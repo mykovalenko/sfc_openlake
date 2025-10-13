@@ -1,11 +1,11 @@
 version: 2
 
 sources:
-  - name: sqls
+  - name: psgs
     database: OPENLAKE_RAW
-    schema: "rep_psgs"
+    schema: '"rep_psgs"'
     tables:
-      - name: "accounts"
+      - name: '"accounts"'
         description: "Accounts table from my transactional system"
         columns:
           - name: "account_id"
@@ -18,42 +18,136 @@ sources:
             description: "Current account balance"
           - name: "open_date"
             description: "Date account was opened"
+          - name: "_SNOWFLAKE_UPDATED_AT"
+            description: "Timestamp of latest row update"
+      - name: '"customers"'
+        description: "Accounts table from my transactional system"
+        columns:
+          - name: "customer_id"
+            description: "Unique identifier for each customer"
+          - name: "first_name"
+            description: "First name of the person"
+          - name: "last_name"
+            description: "Last name of the person"
+          - name: "email"
+            description: "Email address"
+          - name: "phone_number"
+            description: "Phone number"
+          - name: "address"
+            description: "Current place of residence"
+          - name: "state"
+            description: "State of residence"
+          - name: "creation_date"
+            description: "Date customer record was created"
+          - name: "_SNOWFLAKE_UPDATED_AT"
+            description: "Timestamp of latest row update"
+      - name: '"transactions"'
+        description: "Financial transactions table"
+        columns:
+          - name: "transaction_id"
+            description: "Unique identifier for each transaction"
+          - name: "account_id"
+            description: "Account associated with the transaction"
+          - name: "amount"
+            description: "Transaction amount"
+          - name: "transaction_type"
+            description: "Type of transaction (debit/credit)"
+          - name: "transaction_date"
+            description: "Date and time of the transaction"
+      - name: '"loans"'
+        description: "Loan products and details table"
+        columns:
+          - name: "loan_id"
+            description: "Unique identifier for each loan"
+          - name: "customer_id"
+            description: "Customer who has the loan"
+          - name: "loan_amount"
+            description: "Original loan amount"
+          - name: "interest_rate"
+            description: "Annual interest rate"
+          - name: "loan_type"
+            description: "Type of loan product"
+          - name: "start_date"
+            description: "Loan start date"
+      - name: '"credit_cards"'
+        description: "Credit card products and details table"
+        columns:
+          - name: "card_id"
+            description: "Unique identifier for each credit card"
+          - name: "customer_id"
+            description: "Customer who owns the credit card"
+          - name: "card_type"
+            description: "Type of credit card"
+          - name: "credit_limit"
+            description: "Maximum credit limit"
+          - name: "issue_date"
+            description: "Date the card was issued"
+
+  - name: sqls
+    database: OPENLAKE_RAW
+    schema: '"rep_sqls"'
+    tables:
+      - name: '"customer_interactions"'
+        description: "Customer service interactions and communications"
+        columns:
+          - name: "interaction_id"
+            description: "Unique identifier for each interaction"
+          - name: "customer_id"
+            description: "Customer involved in the interaction"
+          - name: "interaction_type"
+            description: "Type of interaction (call, email, chat, etc.)"
+          - name: "interaction_date"
+            description: "Date and time of the interaction"
+          - name: "satisfaction_score"
+            description: "Customer satisfaction rating"
+          - name: "notes"
+            description: "Additional notes about the interaction"
+
 
 models:
   - name: accounts
     description: "Order data transformed for analysis"
     columns:
-      - name: "account_id"
+      - name: '"account_id"'
         description: "Unique identifier for each account"
         tests:
           - unique
           - not_null
-      - name: "account_type"
+      - name: '"account_type"'
         description: "Type of bank account"
         tests:
           - accepted_values:
-            values: ['Nómina', 'Corriente', 'Ahorro']
-      - name: "customer_id"
+              values: ['Nómina', 'Corriente', 'Ahorro']
+              quote: true
+      - name: '"customer_id"'
         description: "Unique identifier for each customer"
         tests:
           - not_null
-      - name: "open_date"
+      - name: '"open_date"'
         description: "Date account was opened"
         tests:
           - not_null
     meta:
-      owner: openlake_eng_team
+      owner: data_eng_team
       freshness_check: True
 
   - name: customer_summary
-    description: "Aggregated customer purchase metrics"
+    description: "Aggregated customer activity metrics"
     columns:
       - name: customer_id
         description: "Unique customer identifier"
         tests:
           - not_null
-      - name: total_orders
+      - name: total_transactions
         description: "Total number of orders by customer"
+      - name: total_spent
+        description: "Total amount daily spent by customer"
+      - name: total_loans
+        description: "Total number of open load products by customer"
+      - name: total_credit_cards
+        description: "Total number of open credit cards by customer"
+      - name: total_interactions
+        description: "Total number of customer interactions by customer"
     meta:
       owner: analytics_team
       refresh_schedule: "daily"
