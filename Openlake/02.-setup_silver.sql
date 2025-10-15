@@ -10,7 +10,8 @@ create iceberg table "accounts" (
 	"account_type" string,
 	"balance" float,
 	"open_date" date,
-    "updated_at" timestamp
+    "updated_at" timestamp,
+    "ref_pk" decimal(38,0)
 );
 
 insert into "accounts"
@@ -31,7 +32,8 @@ create iceberg table "customers" (
     "address" string,
     "state" string,
     "creation_date" date,
-    "updated_at" timestamp
+    "updated_at" timestamp,
+    "ref_pk" decimal(38,0)
 );
 
 insert into "customers"
@@ -49,7 +51,8 @@ create iceberg table "transactions" (
     "transaction_date" timestamp,
     "amount" float,
     "description" string,
-    "updated_at" timestamp
+    "updated_at" timestamp,
+    "ref_pk" decimal(38,0)
 );
 
 insert into "transactions"
@@ -69,7 +72,8 @@ create iceberg table "loans" (
     "interest_rate" float,
     "status" string,
     "start_date" date,
-    "updated_at" timestamp
+    "updated_at" timestamp,
+    "ref_pk" decimal(38,0)
 );
 
 insert into "loans"
@@ -87,7 +91,8 @@ create iceberg table "credit_cards" (
     "card_type" string,
     "credit_limit" decimal(38,0),
     "current_balance" float,
-    "updated_at" timestamp
+    "updated_at" timestamp,
+    "ref_pk" decimal(38,0)
 );
 
 insert into "credit_cards"
@@ -106,7 +111,8 @@ create iceberg table "customer_interactions" (
     "interaction_date" timestamp,
     "channel" string,
     "notes" string,
-    "updated_at" timestamp
+    "updated_at" timestamp,
+    "ref_pk" decimal(38,0)
 );
 
 insert into "customer_interactions"

@@ -52,7 +52,7 @@ create external volume if not exists vol_s3_openlake
     STORAGE_LOCATIONS = ((
          NAME = '<s3 bucket name>'
          STORAGE_PROVIDER = 'S3'
-         STORAGE_BASE_URL = 's3://<s3 bucket name>/' 
+         STORAGE_BASE_URL = 's3://<s3 bucket name>/OPENLAKE_ICE/' 
          STORAGE_AWS_ROLE_ARN = '<iam role arn>' 
          --STORAGE_AWS_EXTERNAL_ID = 'iceberg_volume_external_id'
     ))
