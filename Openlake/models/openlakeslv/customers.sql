@@ -1,6 +1,6 @@
 {{ 
   config(
-    materialized='iceberg_restapi_table',
+    materialized='iceberg_restapi_table_incremental',
     database='OPENLAKE_ICE',
     schema='"openlakeslv"',
     alias='"customers"'
