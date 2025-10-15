@@ -3,9 +3,9 @@
     materialized='iceberg_restapi_table',
     database='OPENLAKE_ICE',
     schema='"openlakegld"',
-    alias='"accounts"'
+    alias='"customer_interactions"'
   ) 
 }}
 
 SELECT * EXCLUDE("updated_at", "ref_pk")
-FROM {{ ref('s_accounts') }}
+FROM {{ ref('s_customer_interactions') }}

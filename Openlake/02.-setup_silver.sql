@@ -3,8 +3,8 @@ use database OPENLAKE_ICE;
 create schema if not exists OPENLAKE_ICE."openlakeslv";
 use schema OPENLAKE_ICE."openlakeslv";
 
-drop table if exists "accounts";
-create iceberg table "accounts" (
+drop table if exists "s_accounts";
+create iceberg table "s_accounts" (
 	"account_id" decimal(38,0),
 	"customer_id" decimal(38,0),
 	"account_type" string,
@@ -14,16 +14,16 @@ create iceberg table "accounts" (
     "ref_pk" decimal(38,0)
 );
 
-insert into "accounts"
+insert into "s_accounts"
 select "account_id", "customer_id",	"account_type",	"balance", "open_date"
 from OPENLAKE_RAW."rep_psgs"."accounts" limit 10;
 
-select * from "accounts";
+select * from "s_accounts";
 
 
 
-drop table if exists "customers";
-create iceberg table "customers" (
+drop table if exists "s_customers";
+create iceberg table "s_customers" (
     "customer_id" decimal(38,0),
     "first_name" string,
     "last_name" string,
@@ -36,16 +36,16 @@ create iceberg table "customers" (
     "ref_pk" decimal(38,0)
 );
 
-insert into "customers"
+insert into "s_customers"
 select "customer_id", "first_name", "last_name", "email", "phone_number", "address", "state", "creation_date"
 from OPENLAKE_RAW."rep_psgs"."customers" limit 10;
 
-select * from "customers";
+select * from "s_customers";
 
 
 
-drop table if exists "transactions";
-create iceberg table "transactions" (
+drop table if exists "s_transactions";
+create iceberg table "s_transactions" (
     "transaction_id" decimal(38,0),
     "account_id" decimal(38,0),
     "transaction_date" timestamp,
@@ -55,17 +55,17 @@ create iceberg table "transactions" (
     "ref_pk" decimal(38,0)
 );
 
-insert into "transactions"
+insert into "s_transactions"
 select "transaction_id", "account_id", "transaction_date", "amount", "description"
 from OPENLAKE_RAW."rep_psgs"."transactions" limit 10;
 
-select * from "transactions";
+select * from "s_transactions";
 
 
 
 
-drop table if exists "loans";
-create iceberg table "loans" (
+drop table if exists "s_loans";
+create iceberg table "s_loans" (
     "loan_id" decimal(38,0),
     "customer_id" decimal(38,0),
     "loan_amount" float,
@@ -76,16 +76,16 @@ create iceberg table "loans" (
     "ref_pk" decimal(38,0)
 );
 
-insert into "loans"
+insert into "s_loans"
 select "loan_id", "customer_id", "loan_amount", "interest_rate", "status", "start_date"
 from OPENLAKE_RAW."rep_psgs"."loans" limit 10;
 
-select * from "loans";
+select * from "s_loans";
 
 
 
-drop table if exists "credit_cards";
-create iceberg table "credit_cards" (
+drop table if exists "s_credit_cards";
+create iceberg table "s_credit_cards" (
     "card_id" decimal(38,0),
     "customer_id" decimal(38,0),
     "card_type" string,
@@ -95,17 +95,17 @@ create iceberg table "credit_cards" (
     "ref_pk" decimal(38,0)
 );
 
-insert into "credit_cards"
+insert into "s_credit_cards"
 select "card_id", "customer_id", "card_type", "credit_limit", "current_balance"
 from OPENLAKE_RAW."rep_psgs"."credit_cards" limit 10;
 
-select * from "credit_cards";
+select * from "s_credit_cards";
 
 
 
 
-drop table if exists "customer_interactions";
-create iceberg table "customer_interactions" (
+drop table if exists "s_customer_interactions";
+create iceberg table "s_customer_interactions" (
     "interaction_id" decimal(38,0),
     "customer_id" decimal(38,0),
     "interaction_date" timestamp,
@@ -115,11 +115,11 @@ create iceberg table "customer_interactions" (
     "ref_pk" decimal(38,0)
 );
 
-insert into "customer_interactions"
+insert into "s_customer_interactions"
 select "interaction_id", "customer_id", "interaction_date", "channel", "notes"
 from OPENLAKE_RAW."rep_psgs"."customer_interactions" limit 10;
 
-select * from "customer_interactions";
+select * from "s_customer_interactions";
 
 
 /*-- Not supported by external catalog

@@ -105,7 +105,7 @@ sources:
 
 
 models:
-  - name: accounts
+  - name: s_accounts
     description: "Order data transformed for analysis"
     columns:
       - name: '"account_id"'
