@@ -130,24 +130,3 @@ models:
     meta:
       owner: data_eng_team
       freshness_check: True
-
-  - name: customer_summary
-    description: "Aggregated customer activity metrics"
-    columns:
-      - name: customer_id
-        description: "Unique customer identifier"
-        tests:
-          - not_null
-      - name: total_transactions
-        description: "Total number of orders by customer"
-      - name: total_spent
-        description: "Total amount daily spent by customer"
-      - name: total_loans
-        description: "Total number of open load products by customer"
-      - name: total_credit_cards
-        description: "Total number of open credit cards by customer"
-      - name: total_interactions
-        description: "Total number of customer interactions by customer"
-    meta:
-      owner: analytics_team
-      refresh_schedule: "daily"
